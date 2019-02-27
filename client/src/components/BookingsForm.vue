@@ -32,7 +32,9 @@ export default {
     }
   },
   methods: {
-    addBooking(){
+    addBooking(event){
+      event.preventDefault();
+
       fetch('http://localhost:3000/api/bookings', {
         method: 'POST',
         body: JSON.stringify(this.newBooking),
