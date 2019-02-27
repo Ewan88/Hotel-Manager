@@ -12,6 +12,10 @@
       <input type="text"
              v-model="newBooking.email"
              id="email" required />
+      <label for="check">Checked-in:</label>
+      <input type="checkbox"
+             v-model="newBooking.checked"
+             id="check" />
       <input type="submit" value="Save" id="save"/>
     </div>
   </form>

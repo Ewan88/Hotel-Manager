@@ -6,13 +6,19 @@
         <p class="name">{{ booking.name }}</p>
         <p>{{ booking.email }}</p>
         <button
-        v-on:click="deleteBooking(booking._id)"
-        class="delete">
+          v-on:click="deleteBooking(booking._id)"
+          class="delete">
           X
         </button>
+        <button
+          v-on:click="checkBooking(booking._id)"
+          class="checkout">
+          >
+        </button>
+
       </section>
     </div>
-    <h3>Guests not checked in:</h3>
+    <h3>Guests checked out:</h3>
     <div class="booking" v-for="booking in bookings">
       <section v-if="!booking.checked">
         <p class="name">{{ booking.name }}</p>
@@ -21,6 +27,11 @@
          v-on:click="deleteBooking(booking._id)"
          class="delete">
           X
+        </button>
+        <button
+          v-on:click="checkBooking(booking._id)"
+          class="checkin">
+          <
         </button>
       </section>
     </div>
@@ -54,6 +65,15 @@ p {
 p.name {
   font-weight: bold;
 }
+button:hover {
+  cursor: pointer;
+}
+button.checkout:hover {
+  background-color: darkred;
+}
+button.checkin:hover {
+  background-color: darkgreen;
+}
 button.delete {
   border: none;
   background-color: none;
@@ -61,7 +81,6 @@ button.delete {
   font-size: large;
 }
 button.delete:hover {
-  cursor: pointer;
-  color: darkred;
+  color: black;
 }
 </style>
