@@ -1,8 +1,8 @@
-<template lang="html">
+<template v-if="bookings" lang="html">
   <div id="bookingsGrid">
     <h3>Guests checked in:</h3>
     <div class="booking" v-for="booking in bookings">
-      <section v-if="booking.checked">
+      <template v-if="booking.checked">
         <p class="name">{{ booking.name }}</p>
         <p>{{ booking.email }}</p>
         <button
@@ -11,16 +11,15 @@
           X
         </button>
         <button
-          v-on:click="checkBooking(booking._id)"
+          v-on:click="checkOut(booking._id)"
           class="checkout">
           >
         </button>
-
-      </section>
+      </template>
     </div>
     <h3>Guests checked out:</h3>
     <div class="booking" v-for="booking in bookings">
-      <section v-if="!booking.checked">
+      <template v-if="!booking.checked">
         <p class="name">{{ booking.name }}</p>
         <p>{{ booking.email }}</p>
         <button
@@ -29,11 +28,11 @@
           X
         </button>
         <button
-          v-on:click="checkBooking(booking._id)"
+          v-on:click="checkIn(booking._id)"
           class="checkin">
           <
         </button>
-      </section>
+      </template>
     </div>
   </div>
 </template>
@@ -48,16 +47,37 @@ export default {
       fetch(`http://localhost:3000/api/bookings/${id}`, {
         method: 'DELETE'
       }).then(data => eventBus.$emit('refresh-data'));
-    }
+    },
+    checkOut(id){
+      let json = {
+        "checked": false
+      }
+      fetch(`http://localhost:3000/api/bookings/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(json),
+        headers: { 'Content-Type': 'application/json' }
+      }).then(data => eventBus.$emit('refresh-data'));
+    },
+    checkIn(id){
+      let json = {
+        "checked": true
+      }
+      fetch(`http://localhost:3000/api/bookings/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(json),
+        headers: { 'Content-Type': 'application/json' }
+      }).then(data => eventBus.$emit('refresh-data'));
+    },
   }
 }
 </script>
 
 <style lang="css" scoped>
-section {
+.booking {
   display: inline-flex;
-  border: 1px solid black;
   margin: 2px 0;
+  background-color: lightgrey;
+  margin-right: 3px;
 }
 p {
   padding-left: 2px;
@@ -68,19 +88,31 @@ p.name {
 button:hover {
   cursor: pointer;
 }
+button.checkout {
+  border: none;
+  background-color: lightgrey;
+  color: blue;
+  font-size: large;
+}
+button.checkin {
+  border: none;
+  background-color: lightgrey;
+  color: green;
+  font-size: large;
+}
 button.checkout:hover {
-  background-color: darkred;
+  color: darkblue;
 }
 button.checkin:hover {
-  background-color: darkgreen;
+  color: darkgreen;
 }
 button.delete {
   border: none;
-  background-color: none;
+  background-color: lightgrey;
   color: red;
   font-size: large;
 }
 button.delete:hover {
-  color: black;
+  color: darkred;
 }
 </style>

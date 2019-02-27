@@ -51,9 +51,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.formContainer {
-  display: inline-block;
-}
 input[type="submit"] {
   margin-left: 5px;
 }
