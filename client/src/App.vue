@@ -1,10 +1,12 @@
 <template lang="html">
   <div id="app">
     <h1>Hilary Clinton Hotels</h1>
+    <bookings-grid :bookings="bookings" />
   </div>
 </template>
 
 <script>
+import BookingsGrid from './components/BookingsGrid';
 import { eventBus } from './main';
 export default {
   name: 'app',
@@ -14,7 +16,7 @@ export default {
     }
   },
   components: {
-
+    BookingsGrid,
   },
   mounted(){
     this.fetchData();
