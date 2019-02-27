@@ -7,6 +7,13 @@
         <p>{{ booking.email }}</p>
       </section>
     </div>
+    <h3>Guests not checked in:</h3>
+    <div class="booking" v-for="booking in bookings">
+      <section v-if="!booking.checked">
+        <p>{{ booking.name }}</p>
+        <p>{{ booking.email }}</p>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -18,11 +25,11 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  section {
-    border: 2px solid black;
-    margin: 2px 0;
-  }
-  p {
-    padding-left: 2px;
-  }
+section {
+  border: 2px solid black;
+  margin: 2px 0;
+}
+p {
+  padding-left: 2px;
+}
 </style>
