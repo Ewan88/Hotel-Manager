@@ -3,33 +3,61 @@
     <h3>Guests checked in:</h3>
     <div class="booking" v-for="booking in bookings">
       <section v-if="booking.checked">
-        <p>{{ booking.name }}</p>
+        <p class="name">{{ booking.name }}</p>
         <p>{{ booking.email }}</p>
+        <button v-on:click="deleteBooking(booking._id)">
+          X
+        </button>
       </section>
     </div>
     <h3>Guests not checked in:</h3>
     <div class="booking" v-for="booking in bookings">
       <section v-if="!booking.checked">
-        <p>{{ booking.name }}</p>
+        <p class="name">{{ booking.name }}</p>
         <p>{{ booking.email }}</p>
+        <button v-on:click="deleteBooking(booking._id)">
+          X
+        </button>
       </section>
     </div>
   </div>
 </template>
 
 <script>
+import { eventBus } from '../main.js'
 export default {
   name: "BookingsGrid",
   props: ["bookings"],
+  methods: {
+    deleteBooking(id){
+      fetch(`http://localhost:3000/api/bookings/${id}`, {
+        method: 'DELETE'
+      }).then(data => eventBus.$emit('refresh-data'));
+    }
+  }
 }
 </script>
 
 <style lang="css" scoped>
 section {
-  border: 2px solid black;
+  display: inline-flex;
+  border: 1px solid black;
   margin: 2px 0;
 }
 p {
   padding-left: 2px;
+}
+p.name {
+  font-weight: bold;
+}
+button {
+  border: none;
+  background-color: none;
+  color: red;
+  font-size: large;
+}
+button:hover {
+  cursor: pointer;
+  color: darkred;
 }
 </style>
