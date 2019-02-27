@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     fetchData(){
-      fetch("localhost:3000/api/bookings")
+      fetch("http://localhost:3000/api/bookings")
       .then(res => res.json())
       .then(bookings => this.bookings = bookings);
     }
